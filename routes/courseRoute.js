@@ -13,7 +13,7 @@ const middleware=require("../middleware/auth.middleware")
 //     }
 // })
 
-courseRouter.get("/",middleware,async(req,res)=>{
+courseRouter.get("/",async(req,res)=>{
     try{
         const {videos}=req.body
         const projection={videos:0}
