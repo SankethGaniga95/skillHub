@@ -9,14 +9,14 @@ const CourseModel = require("../model/courseModel");
 const UserModel=require("../model/user.model")
 const userRouter = express.Router();
 
-// userRouter.get("/", async (req, res) => {
-//   try {
-//     const user = await UserModel.find();
-//     res.send(user);
-//   } catch (error) {
-//     res.status(500).json({error:error.message});
-//   }
-// });
+userRouter.get("/", async (req, res) => {
+  try {
+    const user = await UserModel.find();
+    res.send(user);
+  } catch (error) {
+    res.status(500).json({error:error.message});
+  }
+});
 
 const passwordReq =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
