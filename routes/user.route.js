@@ -273,6 +273,19 @@ userRouter.delete("/mylearning/:courseid",middleware,async(req,res)=>{
 
 
 
+userRouter.get("/mylearning/singleVideoPage/:courseId",middleware, async (req, res) => {
+  const { courseId } = req.params;    
+  try {
+    const singleProductPage = await CourseModel.findOne({ _id: courseId });
+    if (!singleProductPage) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(singleProductPage);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = {
   userRouter
