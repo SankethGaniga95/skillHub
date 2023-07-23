@@ -55,9 +55,9 @@ if (cat==="object") {
         // const toSkip=pageNo*(perPage-1)
         
     
-       console.log(query)
+  
        
-    const course= await CourseModel.find(query).sort({[field1]:sortOrder}).skip(pageNo > 0 ? ( ( pageNo - 1 ) * perPage ) : 0).limit(perPage)
+    const course= await CourseModel.find(query,projection).sort({[field1]:sortOrder}).skip(pageNo > 0 ? ( ( pageNo - 1 ) * perPage ) : 0).limit(perPage)
     res.send({total:course.length,course})
    }
    catch(err){
