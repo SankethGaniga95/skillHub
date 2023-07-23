@@ -111,9 +111,9 @@ userRouter.get("/logout", async (req, res) => {
 
 userRouter.get("/refreshtoken", (req, res) => {
   const refreshToken = req.headers.authorization?.split(" ")[1];
-  const decoded = jwt.verify(refreshToken, process.env.SECRET);
+  const decoded = jwt.verify(refreshToken, process.env.USER_SECRET);
   if (decoded) {
-    let newToken = jwt.sign({ _id: decoded._id }, "sy", {
+    let newToken = jwt.sign({ _id: decoded._id }, process.env.USER_SECRET, {
       expiresIn: 120,
     });
     res.status(200).json({ msg: "newToken", newToken });
@@ -238,7 +238,7 @@ userRouter.patch("/cart/payment/:courseId",middleware,async(req,res)=>{
 // ---------------------------------display products in my learning---------------------------------
 userRouter.get("/mylearning",middleware,async(req,res)=>{
   try{
-  const userId=String(req.body.adminId)
+  const userId=String(req.body.userID)
   const client=await UserModel.findById(userId)
   const checkID=client.mylearning
   await client.populate("mylearning")

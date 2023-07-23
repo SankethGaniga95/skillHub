@@ -66,17 +66,35 @@ if (cat==="object") {
 })
 
 
-courseRouter.get("/singleProductPage/:courseId",middleware,async(req, res) => {
-    try{
-        const {videos}=req.body
-        const projection={videos:0}
-      const singleProductPage=await CourseModel.findById(req.params.courseId,projection)
-      res.send(singleProductPage)
-     
-    }catch(err){
-      console.log(err)
+
+
+courseRouter.get("/singleProductPage/:courseId", async (req, res) => {
+  const { courseId } = req.params;    
+  try {
+    const {videos}=req.body
+    const projection={videos:0}
+    const singleProductPage = await CourseModel.findOne({ _id: courseId },projection);
+    if (!singleProductPage) {
+      return res.status(404).json({ error: "Product not found" });
     }
-    });
+    res.status(200).json(singleProductPage);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+// courseRouter.get("/singleProductPage/:courseId",middleware,async(req, res) => {
+//     try{
+//         const {videos}=req.body
+//         const projection={videos:0}
+//       const singleProductPage=await CourseModel.findById(req.params.courseId,projection)
+//       res.send(singleProductPage)
+     
+//     }catch(err){
+//       console.log(err)
+//     }
+//     });
 
 // courseRouter.patch("/update/:courseId",middleware,async(req,res)=>{
     
